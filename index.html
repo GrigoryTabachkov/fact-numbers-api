@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    #fact {
+      display: none;
+    }
+  </style>
+  <title>Facts in years</title>
+</head>
+  <body class="bg-dark">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card bg-info text-center text-monospace mt-5">
+            <h1>Year Facts</h1>
+            <p>Enter a year (2020 for eg) and get a fact about this year</p>
+            <label>
+              <input type="number" class="form-control form-control-lg"
+                     id="numberInput" placeholder="enter any number">
+              <span id="fact" class="card-body">
+                <h4 class="card-title">
+                  Chosen year fact:
+                </h4>
+                <p id="fact-text" class="card-text"></p>
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <script>
+    const fact = document.querySelector('#fact');
+    const factText = document.querySelector('#fact-text');
+
+    const numberInput = document.querySelector('#numberInput');
+    numberInput.addEventListener('input', getFactFetch);
+
+    function getFactFetch() {
+      const number = numberInput.value;
+
+      fetch(`http://numbersapi.com/${number}/year`) /* year/ */
+        .then((res) => res.text())
+        .then((data) => {
+          if (number !== '') {
+            fact.style.display = 'block';
+            factText.innerText = data;
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  </script>
+  </body>
+</html>
